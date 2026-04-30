@@ -1,22 +1,22 @@
 # library_db
 
-Проект на Spring Boot для работы с базами данных. Приложение реализует простую библиотечную систему и показывает работу с двумя СУБД: PostgreSQL и MySQL.
+A Spring Boot project for working with databases. The application implements a simple library system and shows work with two databases: PostgreSQL and MySQL.
 
-## Что реализовано
+## What is implemented
 
-- регистрация читателей;
-- добавление книг, авторов и издательств;
-- поиск книг по одному параметру;
-- поиск по двум связанным параметрам;
-- агрегирующие отчеты по жанрам и должникам;
-- выбор базы данных в интерфейсе:
-  - PostgreSQL;
-  - MySQL;
-  - PostgreSQL + MySQL для операций добавления;
-- отдельные JDBC-подключения к PostgreSQL и MySQL;
-- серверная валидация форм и обработка типовых ошибок ввода.
+- register readers;
+- adding books, authors, and publishing houses;
+- search for books by one parameter;
+- search by two related parameters;
+- aggregating reports on genres and debtors;
+- database selection in the interface:
+- PostgreSQL;
+- MySQL;
+- PostgreSQL + MySQL for addition operations;
+- separate JDBC connections to PostgreSQL and MySQL;
+- server-side validation of forms and processing of typical input errors.
 
-## Стек
+## Stack
 
 - Java 21
 - Spring Boot 4
@@ -27,23 +27,23 @@
 - MySQL
 - Gradle
 
-## Структура проекта
+## Project structure
 
-- `src/main/java/com/example/library_db/controller` - MVC-контроллеры и обработка ошибок.
-- `src/main/java/com/example/library_db/service` - бизнес-логика и работа с PostgreSQL/MySQL.
-- `src/main/java/com/example/library_db/config` - конфигурация двух источников данных.
-- `src/main/java/com/example/library_db/dto` - DTO и формы.
-- `src/main/resources/templates` - Thymeleaf-страницы.
-- `src/main/resources/static` - CSS и JavaScript.
+- `src/main/java/com/example/library_db/controller` - MVC controllers and error handling.
+- `src/main/java/com/example/library_db/service` - business logic and working with PostgreSQL/MySQL.
+- `src/main/java/com/example/library_db/config' - configuration of two data sources.
+- `src/main/java/com/example/library_db/dto` - DTO and forms.
+- `src/main/resources/templates` - Thymeleaf pages.
+- `src/main/resources/static' - CSS and JavaScript.
 
-## Настройка баз данных
+## Setting up databases
 
-Проект ожидает, что локальные базы данных уже созданы:
+The project expects that local databases have already been created.:
 
 - PostgreSQL: `library_db`
 - MySQL: `library_db_mysql`
 
-Подключения настраиваются в `src/main/resources/application.properties`:
+Connections are configured in `src/main/resources/application.properties`:
 
 ```properties
 app.datasource.postgres.jdbc-url=jdbc:postgresql://localhost:5432/library_db
@@ -55,24 +55,24 @@ app.datasource.mysql.username=root
 app.datasource.mysql.password=your_password
 ```
 
-## Запуск
+## Launch
 
 ```powershell
 .\gradlew.bat bootRun
 ```
 
-После запуска приложение будет доступно по адресу:
+After launch, the application will be available at:
 
 ```text
 http://localhost:8080
 ```
 
-## Тесты
+## Tests
 
 ```powershell
 .\gradlew.bat test
 ```
 
-## Примечание
+## Note
 
-Это учебный проект, поэтому схема базы данных и тестовые данные должны быть подготовлены отдельно в PostgreSQL и MySQL.
+This is a learning project, so the database schema and test data must be prepared separately in PostgreSQL and MySQL.
