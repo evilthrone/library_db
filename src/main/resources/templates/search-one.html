@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск по одному атрибуту</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <header class="page-header">
+        <h1>Поиск по одному атрибуту</h1>
+        <p>Выбор жанра из списка и отображение книг выбранного жанра</p>
+    </header>
+
+    <nav class="top-nav">
+        <a th:href="@{/}">На главную</a>
+        <a th:href="@{/reader}" class="active">Меню читателя</a>
+        <a th:href="@{/staff}">Меню сотрудника</a>
+    </nav>
+
+    <form class="filter-card" method="get" th:action="@{/search/one/result}">
+        <div class="error" th:if="${formError}" th:text="${formError}"></div>
+
+        <label for="databaseTarget">СУБД для поиска</label>
+        <select id="databaseTarget" name="databaseTarget" onchange="this.form.action='/search/one'; this.form.submit()">
+            <option th:each="target : ${searchDatabaseTargets}"
+                    th:value="${target}"
+                    th:text="${target.label}"
+                    th:selected="${selectedDatabaseTarget == target}">
+            </option>
+        </select>
+
+        <label for="genreId">Жанр</label>
+        <select id="genreId" name="genreId" required>
+            <option value="">-- выберите жанр --</option>
+            <option th:each="genre : ${genres}"
+                    th:value="${genre.id}"
+                    th:text="${genre.name}"
+                    th:selected="${selectedGenreId != null and selectedGenreId == genre.id}">
+            </option>
+        </select>
+        <button type="submit" class="btn-primary">Найти</button>
+    </form>
+
+    <div class="table-card" th:if="${books != null and !books.isEmpty()}">
+        <table>
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Автор(ы)</th>
+                <th>Издательство</th>
+                <th>Год</th>
+                <th>Экземпляры</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book : ${books}">
+                <td th:text="${book.title}"></td>
+                <td th:text="${book.authorName}"></td>
+                <td th:text="${book.publisherName}"></td>
+                <td th:text="${book.publicationYear}"></td>
+                <td th:text="${book.copiesCount}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="info-box" th:if="${selectedGenreId != null and (books == null or books.isEmpty())}">
+        По выбранному жанру книги не найдены.
+    </div>
+</div>
+</body>
+</html>

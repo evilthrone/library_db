@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Агрегация данных</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <header class="page-header">
+        <h1>Агрегация данных</h1>
+        <p>Сводная информация по жанрам и открытым штрафам</p>
+    </header>
+
+    <nav class="top-nav">
+        <a th:href="@{/}">На главную</a>
+        <a th:href="@{/reader}">Меню читателя</a>
+        <a th:href="@{/staff}">Меню сотрудника</a>
+    </nav>
+
+    <form class="filter-card" method="get" th:action="@{/aggregation}">
+        <label for="databaseTarget">СУБД для агрегации</label>
+        <select id="databaseTarget" name="databaseTarget" onchange="this.form.submit()">
+            <option th:each="target : ${searchDatabaseTargets}"
+                    th:value="${target}"
+                    th:text="${target.label}"
+                    th:selected="${selectedDatabaseTarget == target}">
+            </option>
+        </select>
+    </form>
+
+    <section class="section-card">
+        <h2>Статистика по жанрам</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Жанр</th>
+                <th>Количество книг</th>
+                <th>Количество экземпляров</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="row : ${genreStatistics}">
+                <td th:text="${row.genreName}"></td>
+                <td th:text="${row.booksCount}"></td>
+                <td th:text="${row.totalCopies}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="section-card">
+        <h2>Должники по штрафам</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Читатель</th>
+                <th>Количество штрафов</th>
+                <th>Общая сумма долга</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="row : ${fineStatistics}">
+                <td th:text="${row.fullName}"></td>
+                <td th:text="${row.finesCount}"></td>
+                <td th:text="${row.totalDebt}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</div>
+</body>
+</html>

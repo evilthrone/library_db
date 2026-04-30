@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление книги</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <header class="page-header">
+        <h1>Сотрудник библиотеки — добавление книги</h1>
+        <p>Форма ввода новой книги в каталог</p>
+    </header>
+
+    <nav class="top-nav">
+        <a th:href="@{/}">На главную</a>
+        <a th:href="@{/reader}">Меню читателя</a>
+        <a th:href="@{/staff}" class="active">Меню сотрудника</a>
+    </nav>
+
+    <div class="success-box" th:if="${successMessage}" th:text="${successMessage}"></div>
+
+    <form class="form-card" th:action="@{/input/book}" th:object="${bookForm}" method="post" autocomplete="off" novalidate>
+        <div class="form-grid">
+            <div class="full-width">
+                <label>СУБД для записи</label>
+                <select th:field="*{databaseTarget}" id="bookDatabaseTarget">
+                    <option th:each="target : ${databaseTargets}"
+                            th:value="${target}"
+                            th:text="${target.label}"></option>
+                </select>
+                <div class="error" th:errors="*{databaseTarget}"></div>
+            </div>
+
+            <div class="full-width">
+                <label>Название</label>
+                <input type="text" th:field="*{title}" maxlength="255" required>
+                <div class="error" th:errors="*{title}"></div>
+            </div>
+
+            <div>
+                <label>Автор</label>
+                <div class="lookup-control">
+                    <div class="lookup-box">
+                        <input type="text"
+                               id="authorLookup"
+                               name="authorName"
+                               th:value="*{authorName}"
+                               class="lookup-input"
+                               placeholder="Начните вводить автора"
+                               autocomplete="off">
+                        <input type="hidden" th:field="*{authorId}" id="authorId">
+                        <div class="lookup-dropdown hidden" id="authorDropdown"></div>
+                    </div>
+                    <button type="button" class="plus-btn" id="openAuthorDialog" title="Добавить автора">+</button>
+                </div>
+                <div class="error" th:errors="*{authorId}"></div>
+            </div>
+
+            <div>
+                <label>Жанр</label>
+                <div class="lookup-box">
+                    <input type="text"
+                           th:field="*{genreName}"
+                           id="genreLookup"
+                           class="lookup-input"
+                           placeholder="Начните вводить жанр"
+                           autocomplete="off">
+                    <div class="lookup-dropdown hidden" id="genreDropdown"></div>
+                </div>
+                <div class="error" th:errors="*{genreName}"></div>
+            </div>
+
+            <div>
+                <label>Издательство</label>
+                <div class="lookup-control">
+                    <div class="lookup-box">
+                        <input type="text"
+                               id="publisherLookup"
+                               name="publisherName"
+                               th:value="*{publisherName}"
+                               class="lookup-input"
+                               placeholder="Начните вводить издательство"
+                               autocomplete="off">
+                        <input type="hidden" th:field="*{publisherId}" id="publisherId">
+                        <div class="lookup-dropdown hidden" id="publisherDropdown"></div>
+                    </div>
+                    <button type="button" class="plus-btn" id="openPublisherDialog" title="Добавить издательство">+</button>
+                </div>
+                <div class="error" th:errors="*{publisherId}"></div>
+            </div>
+
+            <div>
+                <label>ISBN</label>
+                <input type="text" th:field="*{isbn}" maxlength="13" pattern="^\d{13}$" placeholder="13 цифр без дефисов" required>
+                <div class="error" th:errors="*{isbn}"></div>
+            </div>
+
+            <div>
+                <label>Год издания</label>
+                <input type="number" th:field="*{publicationYear}" min="1800" max="2100" required>
+                <div class="error" th:errors="*{publicationYear}"></div>
+            </div>
+
+            <div>
+                <label>Язык</label>
+                <select th:field="*{language}" required>
+                    <option value="">-- выберите язык --</option>
+                    <option value="ru">ru</option>
+                    <option value="en">en</option>
+                </select>
+                <div class="error" th:errors="*{language}"></div>
+            </div>
+
+            <div>
+                <label>Количество страниц</label>
+                <input type="number" th:field="*{pageCount}" min="50" max="5000" required>
+                <div class="error" th:errors="*{pageCount}"></div>
+            </div>
+
+            <div>
+                <label>УДК</label>
+                <input type="text" th:field="*{udcCode}" maxlength="50" placeholder="Можно не заполнять">
+                <div class="error" th:errors="*{udcCode}"></div>
+            </div>
+
+            <div>
+                <label>Шифр полки</label>
+                <input type="text" th:field="*{shelfCode}" maxlength="50" placeholder="Можно не заполнять">
+                <div class="error" th:errors="*{shelfCode}"></div>
+            </div>
+
+            <div>
+                <label>Возрастное ограничение</label>
+                <select th:field="*{ageLimit}" required>
+                    <option value="">-- выберите ограничение --</option>
+                    <option value="0">0</option>
+                    <option value="6">6</option>
+                    <option value="12">12</option>
+                    <option value="16">16</option>
+                    <option value="18">18</option>
+                </select>
+                <div class="error" th:errors="*{ageLimit}"></div>
+            </div>
+
+            <div>
+                <label>Количество экземпляров</label>
+                <input type="number" th:field="*{copiesCount}" min="1" max="1000" required>
+                <div class="error" th:errors="*{copiesCount}"></div>
+            </div>
+
+            <div>
+                <label>Цена</label>
+                <input type="number" step="0.01" th:field="*{unitPrice}" min="0.01" max="1000000" required>
+                <div class="error" th:errors="*{unitPrice}"></div>
+            </div>
+
+            <div class="full-width">
+                <label>Описание</label>
+                <textarea th:field="*{description}" rows="5" maxlength="1000"></textarea>
+                <div class="error" th:errors="*{description}"></div>
+            </div>
+        </div>
+
+        <div class="error" th:if="${#fields.hasGlobalErrors()}">
+            <div th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+        </div>
+
+        <button type="submit" class="btn-primary">Добавить книгу</button>
+    </form>
+</div>
+
+<dialog id="authorDialog" class="app-dialog">
+    <div class="dialog-header">
+        <h2>Новый автор</h2>
+        <button type="button" class="dialog-close" id="closeAuthorDialog">×</button>
+    </div>
+
+    <form id="authorCreateForm" class="dialog-form">
+        <label>СУБД для записи</label>
+        <select id="authorDatabaseTarget">
+            <option th:each="target : ${databaseTargets}"
+                    th:value="${target}"
+                    th:text="${target.label}"></option>
+        </select>
+
+        <label>ФИО автора</label>
+        <input type="text" id="authorFullName" maxlength="255" required>
+
+        <label>Дата рождения</label>
+        <input type="date" id="authorBirthDate" required>
+
+        <label>Страна</label>
+        <input type="text" id="authorCountry" maxlength="100" required>
+
+        <label>Примечание</label>
+        <textarea id="authorNotes" rows="4" maxlength="500" required></textarea>
+
+        <div class="error" id="authorModalError"></div>
+
+        <div class="dialog-actions">
+            <button type="button" class="btn-secondary" id="cancelAuthorDialog">Отмена</button>
+            <button type="submit" class="btn-primary">Добавить</button>
+        </div>
+    </form>
+</dialog>
+
+<dialog id="publisherDialog" class="app-dialog">
+    <div class="dialog-header">
+        <h2>Новое издательство</h2>
+        <button type="button" class="dialog-close" id="closePublisherDialog">×</button>
+    </div>
+
+    <form id="publisherCreateForm" class="dialog-form">
+        <label>СУБД для записи</label>
+        <select id="publisherDatabaseTarget">
+            <option th:each="target : ${databaseTargets}"
+                    th:value="${target}"
+                    th:text="${target.label}"></option>
+        </select>
+
+        <label>Название</label>
+        <input type="text" id="publisherName" maxlength="255" required>
+
+        <label>Город</label>
+        <input type="text" id="publisherCity" maxlength="100" required>
+
+        <label>Страна</label>
+        <input type="text" id="publisherCountry" maxlength="100" required>
+
+        <label>Сайт</label>
+        <input type="url" id="publisherWebsite" placeholder="https://example.com" required>
+
+        <div class="error" id="publisherModalError"></div>
+
+        <div class="dialog-actions">
+            <button type="button" class="btn-secondary" id="cancelPublisherDialog">Отмена</button>
+            <button type="submit" class="btn-primary">Добавить</button>
+        </div>
+    </form>
+</dialog>
+
+<script th:inline="javascript">
+    window.lookupData = {
+        authors: /*[[${authors}]]*/ [],
+        genres: /*[[${genres}]]*/ [],
+        publishers: /*[[${publishers}]]*/ []
+    };
+</script>
+<script th:src="@{/js/input-book.js}"></script>
+</body>
+</html>

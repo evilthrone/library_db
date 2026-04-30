@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск по двум синхронизированным атрибутам</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <header class="page-header">
+        <h1>Поиск по двум синхронизированным атрибутам</h1>
+        <p>Сначала выбирается автор, затем подгружается список его книг</p>
+    </header>
+
+    <nav class="top-nav">
+        <a th:href="@{/}">На главную</a>
+        <a th:href="@{/reader}" class="active">Меню читателя</a>
+        <a th:href="@{/staff}">Меню сотрудника</a>
+    </nav>
+
+    <form class="filter-card" method="get" th:action="@{/search/two/result}">
+        <div class="error" th:if="${formError}" th:text="${formError}"></div>
+
+        <div class="form-grid">
+            <div class="full-width">
+                <label for="databaseTarget">СУБД для поиска</label>
+                <select id="databaseTarget" name="databaseTarget" onchange="this.form.action='/search/two'; this.form.submit()">
+                    <option th:each="target : ${searchDatabaseTargets}"
+                            th:value="${target}"
+                            th:text="${target.label}"
+                            th:selected="${selectedDatabaseTarget == target}">
+                    </option>
+                </select>
+            </div>
+
+            <div>
+                <label for="authorId">Автор</label>
+                <select id="authorId" name="authorId" th:data-selected-author="${selectedAuthorId}" required>
+                    <option value="">-- выберите автора --</option>
+                    <option th:each="author : ${authors}"
+                            th:value="${author.id}"
+                            th:text="${author.name}"
+                            th:selected="${selectedAuthorId != null and selectedAuthorId == author.id}">
+                    </option>
+                </select>
+            </div>
+
+            <div>
+                <label for="bookId">Книга</label>
+                <select id="bookId" name="bookId" th:data-selected-book="${selectedBookId}" required>
+                    <option value="">-- сначала выберите автора --</option>
+                    <option th:each="book : ${booksForAuthor}"
+                            th:value="${book.id}"
+                            th:text="${book.name}"
+                            th:selected="${selectedBookId != null and selectedBookId == book.id}">
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <button type="submit" class="btn-primary">Найти</button>
+    </form>
+
+    <div class="table-card" th:if="${results != null and !results.isEmpty()}">
+        <table>
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Автор(ы)</th>
+                <th>Издательство</th>
+                <th>Год</th>
+                <th>Экземпляры</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book : ${results}">
+                <td th:text="${book.title}"></td>
+                <td th:text="${book.authorName}"></td>
+                <td th:text="${book.publisherName}"></td>
+                <td th:text="${book.publicationYear}"></td>
+                <td th:text="${book.copiesCount}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="info-box" th:if="${selectedAuthorId != null and selectedBookId != null and (results == null or results.isEmpty())}">
+        По выбранным значениям запись не найдена.
+    </div>
+</div>
+
+<script th:src="@{/js/search-two.js}"></script>
+</body>
+</html>

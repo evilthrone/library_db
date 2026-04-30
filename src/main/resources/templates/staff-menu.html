@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Сотрудник библиотеки</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <header class="page-header">
+        <h1>Сотрудник библиотеки</h1>
+        <p>Доступные функции для сотрудника</p>
+    </header>
+
+    <nav class="top-nav">
+        <a th:href="@{/}">На главную</a>
+        <a th:href="@{/reader}">Читатель</a>
+        <a th:href="@{/staff}" class="active">Сотрудник</a>
+    </nav>
+
+    <section class="card-grid">
+        <a class="menu-card" th:href="@{/input/book}">
+            <h3>Добавление книги</h3>
+            <p>Ввод новой книги в каталог с выбором автора, жанра и издательства.</p>
+        </a>
+
+        <a class="menu-card" th:href="@{/aggregation}">
+            <h3>Агрегация данных</h3>
+            <p>Просмотр статистики по жанрам, фонду и штрафам.</p>
+        </a>
+    </section>
+</div>
+</body>
+</html>

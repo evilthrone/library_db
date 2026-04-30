@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Читатель</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <header class="page-header">
+        <h1>Читатель</h1>
+        <p>Доступные функции для читателя</p>
+    </header>
+
+    <nav class="top-nav">
+        <a th:href="@{/}">На главную</a>
+        <a th:href="@{/reader}" class="active">Читатель</a>
+        <a th:href="@{/staff}">Сотрудник</a>
+    </nav>
+
+    <section class="card-grid">
+        <a class="menu-card" th:href="@{/input}">
+            <h3>Регистрация читателя</h3>
+            <p>Добавление нового читателя в базу данных.</p>
+        </a>
+
+        <a class="menu-card" th:href="@{/search/one}">
+            <h3>Поиск по одному атрибуту</h3>
+            <p>Выбор жанра и просмотр книг выбранного жанра.</p>
+        </a>
+
+        <a class="menu-card" th:href="@{/search/two}">
+            <h3>Поиск по двум синхронизированным атрибутам</h3>
+            <p>Выбор автора, затем книги, принадлежащей этому автору.</p>
+        </a>
+    </section>
+</div>
+</body>
+</html>
