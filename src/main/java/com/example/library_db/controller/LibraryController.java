@@ -57,11 +57,6 @@ public class LibraryController {
         return new DatabaseTarget[]{DatabaseTarget.POSTGRES, DatabaseTarget.MYSQL};
     }
 
-    @GetMapping
-    public String index() {
-        return "index";
-    }
-
     @GetMapping("/reader")
     public String readerMenu() {
         return "reader-menu";

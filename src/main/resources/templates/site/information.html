@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/site :: head(${page.title}, ${page.description}, false)}"></head>
+<body class="site-page">
+<header th:replace="~{fragments/site :: header(${page.slug})}"></header>
+<main id="main-content" class="site-shell information-content" tabindex="-1">
+    <header class="information-heading">
+        <a class="back-link" th:href="@{/}">Главная /</a>
+        <p class="eyebrow" th:text="${site.name}"></p>
+        <h1 th:text="${page.title}"></h1>
+        <p class="hero-subtitle" th:text="${page.subtitle}"></p>
+    </header>
+    <div class="information-layout">
+        <article class="information-article" aria-label="Содержание страницы">
+            <section class="text-section" th:each="section : ${page.sections}">
+                <h2 th:text="${section.heading}"></h2>
+                <p th:text="${section.text}"></p>
+            </section>
+            <section class="contact-panel" th:if="${page.slug == 'contacts'}" aria-labelledby="contact-title">
+                <h2 id="contact-title">Адрес, время работы и связь</h2>
+                <dl class="contact-list">
+                    <dt>Город</dt><dd th:text="${site.city}"></dd>
+                    <dt>Адрес</dt><dd th:text="${site.address}"></dd>
+                    <dt>Время работы</dt><dd th:text="${site.openingHours}"></dd>
+                    <dt>Телефон</dt><dd th:text="${site.phone}"></dd>
+                    <dt>Электронная почта</dt><dd th:text="${site.email}"></dd>
+                </dl>
+                <div th:replace="~{fragments/tools :: map}"></div>
+            </section>
+            <section class="related-section" aria-labelledby="related-title">
+                <h2 id="related-title" th:text="${page.slug == 'resources' ? 'Библиотеки и справочники' : 'Продолжить знакомство'}"></h2>
+                <div class="resource-list">
+                    <a class="resource-card" th:each="link : ${page.links}" th:href="@{${link.url}}">
+                        <h3><span th:text="${link.title}"></span> <span aria-hidden="true" th:text="${link.external() ? '↗' : '→'}"></span></h3>
+                        <p th:text="${link.description}"></p>
+                        <span class="resource-kind" th:if="${link.external()}">Внешний сайт</span>
+                    </a>
+                </div>
+            </section>
+        </article>
+        <aside class="information-aside" aria-label="О библиотеке">
+            <p class="eyebrow">Учебный проект</p>
+            <h2>Знакомься с библиотекой</h2>
+            <p>Правила, отделы и услуги описывают демонстрационную модель. Реальные сведения об организации пока не опубликованы.</p>
+            <a th:href="@{/membership}">Как стать читателем</a>
+            <a th:href="@{/reader}">Перейти к поиску книг</a>
+            <a th:href="@{/contacts}">Контактные сведения</a>
+        </aside>
+    </div>
+</main>
+<footer th:replace="~{fragments/site :: footer}"></footer>
+</body>
+</html>

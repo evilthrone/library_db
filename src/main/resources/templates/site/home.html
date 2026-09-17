@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/site :: head('Главная', 'Учебная библиотека: чтение, учёба, поиск книг и регистрация читателей.', false)}"></head>
+<body class="site-page">
+<header th:replace="~{fragments/site :: header('home')}"></header>
+<main id="main-content" class="site-shell" tabindex="-1">
+    <section class="home-hero" aria-labelledby="home-title">
+        <div>
+            <p class="eyebrow">Читать. Узнавать. Открывать.</p>
+            <h1 id="home-title" th:text="${site.name}">Библиотека «Открытая книга»</h1>
+            <p class="hero-subtitle" th:text="${site.tagline}"></p>
+            <p>Книги помогают найти ответ, разобраться в сложной теме или увидеть привычное по-новому.
+                Наша учебная библиотека объединяет студентов, преподавателей и всех, кто любит читать.</p>
+            <a class="site-button" th:href="@{/reader}">Перейти в раздел читателя <span aria-hidden="true">→</span></a>
+        </div>
+        <aside class="hero-note" aria-label="О проекте">
+            <span class="eyebrow">Для любознательных</span>
+            <p class="hero-quote">У каждой новой идеи<br>есть первая страница.</p>
+            <p>Начни с выбора книги. В разделе читателя доступны поиск по жанру и поиск по автору.</p>
+        </aside>
+    </section>
+    <section class="home-section" aria-labelledby="sections-title">
+        <p class="eyebrow">Библиотека онлайн</p>
+        <h2 id="sections-title">С чего начнём?</h2>
+        <div class="site-card-grid">
+            <a class="site-card" th:href="@{/reader}">
+                <span class="card-number" aria-hidden="true">01</span>
+                <h3>Читателю</h3>
+                <p>Найди книгу по жанру или автору и открой форму регистрации читателя.</p>
+                <span class="card-action">Открыть раздел <span aria-hidden="true">→</span></span>
+            </a>
+            <a class="site-card" th:href="@{/staff}">
+                <span class="card-number" aria-hidden="true">02</span>
+                <h3>Сотруднику</h3>
+                <p>Добавляй книги в каталог и просматривай сводную информацию о библиотечном фонде.</p>
+                <span class="card-action">Открыть раздел <span aria-hidden="true">→</span></span>
+            </a>
+            <a class="site-card" th:href="@{/app}">
+                <span class="card-number" aria-hidden="true">03</span>
+                <h3>Приложение библиотеки</h3>
+                <p>Все существующие функции учёта и поиска книг собраны в одном приложении.</p>
+                <span class="card-action">Выбрать режим <span aria-hidden="true">→</span></span>
+            </a>
+        </div>
+    </section>
+    <section class="home-section" aria-labelledby="information-title">
+        <p class="eyebrow">Перед первым посещением</p>
+        <h2 id="information-title">Познакомься с библиотекой</h2>
+        <div class="site-card-grid">
+            <a class="site-card" th:href="@{/about}">
+                <h3>О библиотеке</h3>
+                <p>История учебного проекта, задачи и направления работы.</p>
+                <span class="card-action">Узнать больше →</span>
+            </a>
+            <a class="site-card" th:href="@{/membership}">
+                <h3>Как стать читателем</h3>
+                <p>Порядок регистрации, сведения о документах и читательском билете.</p>
+                <span class="card-action">С чего начать →</span>
+            </a>
+            <a class="site-card" th:href="@{/resources}">
+                <h3>Полезные ресурсы</h3>
+                <p>Электронные библиотеки и справочники для самостоятельной работы.</p>
+                <span class="card-action">Открыть подборку →</span>
+            </a>
+        </div>
+    </section>
+    <section class="site-notice" aria-labelledby="demo-title">
+        <h2 id="demo-title">Учебная библиотека</h2>
+        <p>Этот сайт создан для учебного проекта. Название и сведения о библиотеке
+            используются для демонстрации; реальные контакты будут указаны отдельно.</p>
+    </section>
+</main>
+<footer th:replace="~{fragments/site :: footer}"></footer>
+</body>
+</html>

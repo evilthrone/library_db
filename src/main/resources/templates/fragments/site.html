@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title, description, legacy)" th:with="site=${site ?: @siteModelAdvice.site}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} + ' | ' + ${site.name}">Библиотека</title>
+    <meta name="description" th:content="${description}">
+    <link th:if="${legacy}" rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/site.css}">
+    <script type="module" th:src="@{/js/site-tools.mjs}"></script>
+</head>
+<body>
+<header class="site-header" th:fragment="header(active)" th:with="site=${site ?: @siteModelAdvice.site}">
+    <a class="skip-link" href="#main-content">Перейти к содержимому</a>
+    <div class="site-shell header-content">
+        <a class="site-brand" th:href="@{/}">
+            <svg class="site-logo" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <rect width="48" height="48" rx="12" fill="currentColor"/>
+                <path d="M24 15c-5-4-11-4-16-2v23c5-2 11-2 16 2 5-4 11-4 16-2V13c-5-2-11-2-16 2Zm0 0v23"
+                      fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+            <span><strong th:text="${site.name}">Библиотека</strong>
+                <span class="brand-caption">Учебная библиотека</span></span>
+        </a>
+        <nav class="site-nav" aria-label="Основная навигация">
+            <a th:href="@{/}" th:attr="aria-current=${active == 'home' ? 'page' : null}">Главная</a>
+            <a th:href="@{/app}" th:attr="aria-current=${active == 'app' ? 'page' : null}">Приложение БД</a>
+            <details class="nav-dropdown" name="site-navigation">
+                <summary th:classappend="${active == 'about' or active == 'departments' or active == 'library-services' or active == 'achievements'} ? 'current-section'">О библиотеке</summary>
+                <div class="nav-dropdown-links">
+                    <a th:each="item : ${@sitePageCatalog.pages}" th:if="${item.group == 'library'}"
+                       th:href="@{${item.path()}}" th:text="${item.title}"
+                       th:attr="aria-current=${active == item.slug ? 'page' : null}"></a>
+                </div>
+            </details>
+            <details class="nav-dropdown" name="site-navigation">
+                <summary th:classappend="${active == 'rules' or active == 'membership' or active == 'faq'} ? 'current-section'">Читателю</summary>
+                <div class="nav-dropdown-links">
+                    <a th:each="item : ${@sitePageCatalog.pages}" th:if="${item.group == 'reader'}"
+                       th:href="@{${item.path()}}" th:text="${item.title}"
+                       th:attr="aria-current=${active == item.slug ? 'page' : null}"></a>
+                    <a th:href="@{/reader}">Поиск и регистрация</a>
+                </div>
+            </details>
+            <a th:href="@{/resources}" th:attr="aria-current=${active == 'resources' ? 'page' : null}">Ресурсы</a>
+            <a th:href="@{/contacts}" th:attr="aria-current=${active == 'contacts' ? 'page' : null}">Контакты</a>
+            <a th:href="@{/services}" th:attr="aria-current=${active == 'services' ? 'page' : null}">Сервисы</a>
+        </nav>
+    </div>
+    <div class="site-shell search-bar">
+        <form role="search" class="site-search-form" th:action="@{/site-search}" method="get">
+            <label for="site-query">Поиск по сайту</label>
+            <div class="search-controls">
+                <input id="site-query" name="q" type="search" maxlength="200" th:value="${query ?: ''}"
+                       placeholder="Например: читательский билет">
+                <button type="submit">Найти</button>
+            </div>
+        </form>
+    </div>
+</header>
+<footer class="site-footer" th:fragment="footer" th:with="site=${site ?: @siteModelAdvice.site}">
+    <div class="site-shell footer-grid">
+        <div>
+            <h2 th:text="${site.name}">Библиотека</h2>
+            <p th:text="${site.tagline}">Для чтения и учёбы</p>
+            <p class="footer-note">Учебный проект. Сведения о библиотеке демонстрационные.</p>
+        </div>
+        <div>
+            <h2>Контакты</h2>
+            <p th:text="${site.city}"></p>
+            <p th:text="${site.address}"></p>
+            <p th:text="${site.openingHours}"></p>
+            <p th:text="${site.phone}"></p>
+            <p th:text="${site.email}"></p>
+        </div>
+        <div>
+            <h2>Разработчик</h2>
+            <p th:text="${site.developer}"></p>
+            <p class="footer-note">Лабораторная работа по веб-технологиям</p>
+        </div>
+    </div>
+    <div class="site-shell visit-footer">
+        <p th:if="${pageVisitCount != null}">Посещений этой страницы: <strong th:text="${pageVisitCount}"></strong>.
+            Каждое открытие и обновление учитывается.</p>
+        <p th:unless="${@visitCounter.storageAvailable}">Сохранение статистики недоступно. Новые посещения учитываются только до перезапуска.</p>
+        <a th:href="@{/services/popular}">Топ страниц</a>
+        <a th:href="@{/services/visits}">Вся статистика посещений</a>
+    </div>
+</footer>
+</body>
+</html>

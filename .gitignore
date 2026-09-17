@@ -1,4 +1,6 @@
 HELP.md
+/data/page-visits.properties
+/data/page-visits.properties.tmp
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar

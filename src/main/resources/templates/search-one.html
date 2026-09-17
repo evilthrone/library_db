@@ -1,22 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Поиск по одному атрибуту</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
-<body>
-<div class="container">
+<head th:replace="~{fragments/site :: head('Поиск по одному атрибуту', 'Библиотечная система: Поиск по одному атрибуту', true)}"></head>
+<body class="site-page db-page">
+<header th:replace="~{fragments/site :: header('app')}"></header>
+<main id="main-content" class="site-shell db-content" tabindex="-1">
     <header class="page-header">
         <h1>Поиск по одному атрибуту</h1>
         <p>Выбор жанра из списка и отображение книг выбранного жанра</p>
     </header>
-
-    <nav class="top-nav">
-        <a th:href="@{/}">На главную</a>
-        <a th:href="@{/reader}" class="active">Меню читателя</a>
-        <a th:href="@{/staff}">Меню сотрудника</a>
-    </nav>
 
     <form class="filter-card" method="get" th:action="@{/search/one/result}">
         <div class="error" th:if="${formError}" th:text="${formError}"></div>
@@ -68,6 +59,7 @@
     <div class="info-box" th:if="${selectedGenreId != null and (books == null or books.isEmpty())}">
         По выбранному жанру книги не найдены.
     </div>
-</div>
+</main>
+<footer th:replace="~{fragments/site :: footer}"></footer>
 </body>
 </html>

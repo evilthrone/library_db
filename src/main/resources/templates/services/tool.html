@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/site :: head(${tool.title}, ${tool.description}, false)}"></head>
+<body class="site-page">
+<header th:replace="~{fragments/site :: header('services')}"></header>
+<main id="main-content" class="site-shell information-content" tabindex="-1">
+    <a class="back-link" th:href="@{/services}">Все сервисы /</a>
+    <h1 th:text="${tool.title}"></h1>
+    <p class="hero-subtitle" th:text="${tool.description}"></p>
+    <div class="tool-panel" th:switch="${tool.slug}">
+        <div th:case="'visits'">
+            <p>Всего посещений: <strong th:text="${totalVisits}"></strong>.</p>
+            <p>Открытие и обновление HTML-страницы добавляют по одному посещению. Это просмотры, а не уникальные люди.
+                Роботы тоже могут учитываться. Поисковые запросы и параметры форм не сохраняются в статистике.</p>
+            <div th:replace="~{fragments/tools :: visit-table}"></div>
+        </div>
+        <div th:case="'popular'">
+            <p>Десять самых посещаемых страниц. При одинаковом числе посещений используется порядок по названию.</p>
+            <div th:replace="~{fragments/tools :: visit-table}"></div>
+            <p th:if="${#lists.isEmpty(visitRows)}">Пока нет посещений.</p>
+        </div>
+        <div th:case="'search'">
+            <p>Введи слова в поисковую строку под верхним меню. Поиск найдёт страницы, в которых встречаются эти слова,
+                и покажет ссылку и фрагмент текста.</p>
+            <p>Например: <a th:href="@{/site-search(q='читательский билет')}">читательский билет</a>,
+                <a th:href="@{/site-search(q='возврат')}">возврат</a>,
+                <a th:href="@{/site-search(q='время работы')}">время работы</a>.</p>
+            <p>Регистр и различие «е/ё» не важны. Слова от трёх букв также ищутся по началу слова.
+                Заголовочные совпадения показываются выше. Персональные данные и результаты отчётов не индексируются.</p>
+        </div>
+        <div th:case="'map'">
+            <div th:replace="~{fragments/tools :: map}"></div>
+            <a th:href="@{/contacts}">Перейти к контактам</a>
+        </div>
+        <div th:case="'weather'" class="weather-widget" th:data-latitude="${site.latitude}" th:data-longitude="${site.longitude}">
+            <h2 th:text="${site.city}"></h2>
+            <p class="external-status" role="status">Загрузка погоды…</p>
+            <div class="external-result"></div>
+            <button type="button" class="external-retry">Обновить погоду</button>
+            <p class="tool-note">Источник: <a href="https://open-meteo.com/">Open-Meteo</a>,
+                <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Модельная оценка текущих условий.
+                Погода загружается для настроенной точки библиотеки, а не по геолокации посетителя.</p>
+        </div>
+        <div th:case="'exchange-rates'" class="exchange-widget">
+            <p class="external-status" role="status">Загрузка курсов…</p>
+            <div class="external-result"></div>
+            <button type="button" class="external-retry">Обновить курсы</button>
+            <p class="tool-note">Данные ЦБ РФ через <a href="https://www.cbr-xml-daily.ru/">API курсов валют</a>.
+                Показана стоимость одной единицы валюты в рублях. Это справочные курсы, а не предложение обмена.</p>
+        </div>
+        <div th:case="'reading-timer'" class="reading-timer">
+            <label for="timer-minutes">Длительность, минут (1–180)</label>
+            <input id="timer-minutes" type="number" min="1" max="180" step="1" value="20">
+            <p class="timer-display" aria-label="Осталось времени">20:00</p>
+            <div class="tool-actions">
+                <button type="button" data-timer-action="start">Старт</button>
+                <button type="button" data-timer-action="pause" disabled>Пауза</button>
+                <button type="button" data-timer-action="reset">Сброс</button>
+            </div>
+            <p class="timer-status" role="status">Выбери длительность и нажми «Старт».</p>
+            <p class="tool-note">Не закрывай страницу. В фоновой вкладке уведомление может появиться с задержкой;
+                при возвращении оставшееся время будет пересчитано.</p>
+        </div>
+        <form th:case="'isbn'" class="calculator" data-calculator="isbn">
+            <label for="isbn-value">ISBN-10 или ISBN-13</label>
+            <input id="isbn-value" name="isbn" type="text" maxlength="40" placeholder="978-0-306-40615-7" required>
+            <button type="submit">Проверить</button>
+            <p class="tool-result" role="status"></p>
+            <p class="tool-note">Проверяется формат и контрольная цифра. Верный номер не подтверждает наличие книги в каталоге.</p>
+        </form>
+        <form th:case="'reading-plan'" class="calculator" data-calculator="reading-plan">
+            <label for="plan-pages">Объём книги, страниц</label>
+            <input id="plan-pages" name="pages" type="number" min="1" max="1000000" step="1" required>
+            <label for="plan-read">Уже прочитано, страниц</label>
+            <input id="plan-read" name="read" type="number" min="0" max="1000000" step="1" value="0" required>
+            <label for="plan-days">Сколько дней осталось</label>
+            <input id="plan-days" name="days" type="number" min="1" max="36500" step="1" required>
+            <button type="submit">Рассчитать</button>
+            <p class="tool-result" role="status"></p>
+            <p class="tool-note">Остаток страниц делится на число дней и округляется вверх. В последний день может остаться меньше страниц.</p>
+        </form>
+        <form th:case="'return-date'" class="calculator" data-calculator="return-date">
+            <label for="loan-date">Дата выдачи</label>
+            <input id="loan-date" name="date" type="date" min="1900-01-01" max="9998-12-31" required>
+            <label for="loan-days">Срок, календарных дней</label>
+            <input id="loan-days" name="days" type="number" min="1" max="36500" step="1" value="14" required>
+            <button type="submit">Рассчитать</button>
+            <p class="tool-result" role="status"></p>
+            <p class="tool-note">К дате выдачи прибавляется указанное число дней. День выдачи — день 0.
+                Выходные и праздники не исключаются. Расчёт не оформляет выдачу или продление в библиотеке.</p>
+        </form>
+    </div>
+    <noscript>Для карты, погоды, курсов, таймера и калькуляторов включи JavaScript. Поиск и статистика работают без него.</noscript>
+</main>
+<footer th:replace="~{fragments/site :: footer}"></footer>
+
+</body>
+</html>

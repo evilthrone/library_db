@@ -1,0 +1,195 @@
+/* Оформление информационного сайта. Стили существующих форм находятся в style.css. */
+.site-page {
+    margin: 0;
+    background: #f7f8fc;
+    color: #202b40;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.site-page *, .site-page *::before, .site-page *::after { box-sizing: border-box; }
+.site-page main { flex: 1; }
+.site-page h1, .site-page h2, .site-page h3 { line-height: 1.2; }
+.site-page h1 { font-size: clamp(2rem, 4.5vw, 3.6rem); letter-spacing: -.035em; margin: 0 0 24px; }
+.site-page h2 { font-size: 1.85rem; margin: 0 0 20px; }
+.site-page h3 { font-size: 1.35rem; }
+.site-page p { margin: 0 0 18px; }
+.site-page a { color: inherit; }
+.site-page a:focus-visible, .site-page summary:focus-visible {
+    outline: 3px solid #8c4b00;
+    outline-offset: 5px;
+}
+.site-shell { width: min(1160px, 100%); margin: 0 auto; padding-inline: 28px; }
+.site-header { background: #fff; border-bottom: 1px solid #dfe4ef; }
+.header-content { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding-block: 22px; }
+.site-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.site-logo { width: 48px; height: 48px; color: #2558b7; flex-shrink: 0; }
+.brand-caption { display: block; font-size: .8rem; color: #58647a; }
+.site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: .9rem; }
+.site-nav > a, .site-nav summary { padding: 10px 12px; border-radius: 8px; cursor: pointer; }
+.site-nav a { text-decoration: none; }
+.site-nav a:hover, .site-nav summary:hover { background: #eef3fc; }
+.site-nav [aria-current="page"] { background: #e8effc; color: #1c4691; font-weight: 650; }
+.nav-dropdown { position: relative; }
+.nav-dropdown-links { position: absolute; right: 0; z-index: 2; width: 250px; max-width: calc(100vw - 40px); padding: 8px; background: #fff; border: 1px solid #dfe4ef; border-radius: 12px; box-shadow: 0 12px 24px #202b4014; }
+.nav-dropdown-links a { display: block; padding: 10px; border-radius: 6px; }
+.skip-link { position: absolute; top: -100px; left: 16px; z-index: 3; padding: 12px; background: #fff; }
+.skip-link:focus { top: 12px; }
+.home-hero { display: grid; grid-template-columns: 1.4fr 1fr; align-items: center; gap: 64px; padding-block: 72px; }
+.eyebrow { color: #2558b7; text-transform: uppercase; letter-spacing: .12em; font-size: .75rem; font-weight: 700; }
+.hero-subtitle { font-size: 1.25rem; color: #4c5b74; }
+.site-button { display: inline-flex; align-items: center; gap: 24px; padding: 14px 20px; border-radius: 10px; background: #2558b7; color: #fff !important; text-decoration: none; font-weight: 600; margin-top: 12px; }
+.site-button:hover { background: #1b4390; }
+.hero-note { padding: 40px 32px; background: #eaf0fb; border-radius: 24px; border-left: 5px solid #2558b7; }
+.hero-note .hero-quote { font-family: Georgia, serif; font-size: clamp(1.6rem, 3vw, 2.4rem); line-height: 1.3; margin-block: 24px; }
+.hero-note > p:last-child { color: #4c5b74; margin: 0; }
+.home-section { padding-bottom: 48px; }
+.site-card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.site-card { display: flex; flex-direction: column; padding: 28px; background: #fff; border: 1px solid #dce2ed; border-radius: 16px; text-decoration: none; }
+.site-card:hover { border-color: #2558b7; box-shadow: 0 8px 24px #202b400d; }
+.site-card p { color: #526078; }
+.card-number { font-size: .8rem; color: #2558b7; font-weight: 700; }
+.card-action { color: #2558b7; font-weight: 650; margin-top: auto; }
+.site-notice { padding: 28px; border-radius: 16px; background: #edf0f6; margin-bottom: 56px; }
+.site-notice h2 { font-size: 1.25rem; margin-bottom: 12px; }
+.site-notice p { margin: 0; max-width: 80ch; color: #526078; }
+.site-footer { background: #fff; border-top: 1px solid #dfe4ef; padding-block: 36px; }
+.footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 36px; }
+.site-footer h2 { font-size: 1rem; margin-bottom: 14px; }
+.site-footer p { font-size: .85rem; color: #526078; margin-bottom: 8px; overflow-wrap: anywhere; }
+.site-footer .footer-note { color: #606d81; }
+.app-content { padding-block: 56px; }
+.role-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 32px; }
+.app-note { margin-top: 24px !important; color: #526078; }
+.search-bar { padding-bottom: 20px; }
+.site-search-form { max-width: 780px; }
+.site-search-form label { display: block; margin-bottom: 8px; font-weight: 600; font-size: .9rem; }
+.search-controls { display: flex; gap: 10px; }
+.site-page .search-controls input { min-width: 0; flex: 1; width: auto; }
+.site-search-form input, .tool-panel input {
+    padding: 12px; border: 1px solid #bac7dd; border-radius: 10px; font: inherit; color: #202b40; background: #fff;
+}
+.site-search-form button, .tool-panel button, .map-widget button {
+    padding: 12px 18px; border: 0; border-radius: 10px; font: inherit; font-weight: 600;
+    background: #2558b7; color: #fff; cursor: pointer;
+}
+.site-page button:disabled { opacity: .55; cursor: default; }
+.site-page input:focus-visible, .site-page button:focus-visible {
+    outline: 3px solid #8c4b00; outline-offset: 3px;
+}
+.visit-footer { padding-top: 24px; margin-top: 24px; border-top: 1px solid #dfe4ef; }
+.visit-footer a { display: inline-block; color: #1c4691; margin: 8px 20px 0 0; font-size: .85rem; }
+.tool-panel { padding: 28px; background: #fff; border: 1px solid #dce2ed; border-radius: 16px; margin-top: 28px; }
+.tool-panel h2 { font-size: 1.4rem; }
+.tool-panel input { width: min(100%, 480px); display: block; margin: 8px 0 20px; }
+.tool-panel label { display: block; font-weight: 600; }
+.tool-note { color: #526078; font-size: .9rem; margin-top: 20px !important; }
+.tool-result { padding-top: 20px; font-size: 1.2rem; font-weight: 600; }
+.tool-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+.timer-display, .weather-temperature { font-size: clamp(2.5rem, 7vw, 4rem); font-variant-numeric: tabular-nums; }
+.visit-table-wrap { overflow-x: auto; }
+.visit-table { width: 100%; border-collapse: collapse; text-align: left; }
+.visit-table caption { text-align: left; font-weight: 650; padding: 12px; }
+.visit-table th, .visit-table td { padding: 12px; border-bottom: 1px solid #dfe4ef; }
+.visit-table th { background: #eef3fc; }
+.map-widget { margin-top: 24px; min-width: 0; }
+.map-widget h2 { font-size: 1.4rem; }
+.library-map { height: 380px; border: 1px solid #dce2ed; border-radius: 12px; background: #edf0f6; z-index: 0; }
+.map-status { margin-top: 14px !important; }
+.site-page .leaflet-control a { color: #202b40; }
+.site-page .leaflet-control-attribution { font-size: 11px; }
+@media (max-width: 600px) {
+    .tool-panel { padding: 20px; }
+    .search-controls { flex-wrap: wrap; }
+    .search-controls input { flex-basis: 200px !important; }
+    .library-map { height: 320px; }
+}
+.site-nav .current-section { background: #e8effc; color: #1c4691; font-weight: 650; }
+.information-content { padding-block: 40px 64px; }
+.information-heading { max-width: 850px; margin-bottom: 36px; }
+.information-heading h1 { font-size: clamp(2rem, 4vw, 3rem); }
+.back-link { display: inline-block; margin-bottom: 24px; font-size: .85rem; color: #526078 !important; }
+.information-layout { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 40px; align-items: start; }
+.information-article { min-width: 0; }
+.text-section { margin-bottom: 28px; }
+.text-section h2, .related-section h2, .contact-panel h2 { font-size: 1.4rem; margin-bottom: 12px; }
+.text-section p { max-width: 75ch; color: #4c5b74; }
+.information-aside { border-radius: 16px; padding: 24px; background: #eaf0fb; }
+.information-aside h2 { font-size: 1.3rem; }
+.information-aside p { font-size: .9rem; }
+.information-aside a { display: block; margin-top: 14px; color: #1c4691; }
+.resource-list { display: grid; gap: 16px; }
+.resource-card { display: block; padding: 24px; background: #fff; border: 1px solid #dce2ed; border-radius: 16px; text-decoration: none; }
+.resource-card:hover { border-color: #2558b7; }
+.resource-card h3 { margin: 0 0 10px; color: #2558b7; }
+.resource-card p { margin: 0; color: #526078; }
+.resource-kind { display: inline-block; margin-top: 12px; font-size: .8rem; color: #526078; }
+.contact-panel { background: #fff; padding: 24px; border: 1px solid #dce2ed; border-radius: 16px; margin-bottom: 28px; }
+.contact-list { margin: 0; }
+.contact-list dt { font-weight: 650; margin-top: 16px; }
+.contact-list dd { margin: 4px 0 0; overflow-wrap: anywhere; color: #526078; }
+@media (max-width: 900px) {
+    .information-layout { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (max-width: 600px) {
+    .site-nav { width: 100%; }
+    .site-nav .nav-dropdown { position: static; }
+    .site-nav .nav-dropdown[open] { flex-basis: 100%; }
+    .site-nav .nav-dropdown-links { position: static; width: 100%; max-width: 100%; margin-top: 6px; }
+}
+/* Existing database screens share the site shell; form and JS hooks stay intact. */
+.db-content { padding-block: 40px 56px; min-width: 0; }
+.db-page .page-header { margin-bottom: 24px; }
+.db-page .page-header h1 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 12px; }
+.db-page .page-header p { color: #526078; }
+.db-page .top-nav { gap: 8px; margin-bottom: 28px; }
+.db-page .top-nav a { border-color: #dce2ed; font-size: .9rem; }
+.db-page .top-nav a:hover, .db-page .top-nav a.active { background: #e8effc; color: #1c4691; border-color: #b7c9eb; }
+.db-page .menu-card, .db-page .form-card, .db-page .filter-card,
+.db-page .table-card, .db-page .section-card, .db-page .error-page-card {
+    padding: 28px; border: 1px solid #dce2ed; border-radius: 16px; box-shadow: none;
+}
+.db-page .menu-card:hover { transform: none; border-color: #2558b7; box-shadow: 0 8px 24px #202b400d; }
+.db-page .menu-card p { margin-bottom: 0; color: #526078; }
+.db-page .section-card h2 { font-size: 1.4rem; }
+.db-page .filter-card { margin-bottom: 24px; }
+.db-page .form-grid > *, .db-page .lookup-box { min-width: 0; }
+.db-page input, .db-page select, .db-page textarea, .db-page button { font-family: inherit; }
+.db-page input, .db-page select, .db-page textarea { font-size: 1rem; background: #fff; color: #202b40; }
+.db-page input:focus-visible, .db-page select:focus-visible,
+.db-page textarea:focus-visible, .db-page button:focus-visible { outline: 3px solid #8c4b00; outline-offset: 3px; }
+.db-page .btn-primary { background: #2558b7; color: #fff; font-weight: 600; }
+.db-page .btn-primary:hover { background: #1b4390; }
+.db-page .table-card, .db-page .section-card { overflow-x: auto; }
+.db-page th { background: #eef3fc; }
+.db-page td, .db-page th { overflow-wrap: anywhere; }
+.db-page .error-page-card { margin: 0 auto; }
+.db-page .error-page-actions { flex-wrap: wrap; align-items: center; }
+.db-page .error-page-actions .btn-primary { margin-top: 0; }
+.db-page .app-dialog { color: #202b40; font-family: inherit; border: 1px solid #dce2ed; }
+.db-page .dialog-header h2 { font-size: 1.5rem; margin: 0; }
+@media (max-width: 600px) {
+    .db-page .menu-card, .db-page .form-card, .db-page .filter-card,
+    .db-page .table-card, .db-page .section-card, .db-page .error-page-card { padding: 20px; }
+    .db-page .card-grid { grid-template-columns: 1fr; }
+    .db-page .dialog-actions { flex-wrap: wrap; }
+}
+@media (max-width: 900px) {
+    .header-content { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .home-hero { gap: 28px; padding-block: 40px; }
+    .site-card-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+    .site-shell { padding-inline: 20px; }
+    .home-hero, .footer-grid { grid-template-columns: 1fr; }
+    .hero-note { padding: 28px 24px; }
+    .site-nav { gap: 4px; }
+    .site-nav > a, .site-nav summary { padding: 10px 8px; }
+    .nav-dropdown-links { left: 0; right: auto; }
+    .site-card { padding: 24px; }
+    .site-button { gap: 12px; }
+}

@@ -1,22 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Сотрудник библиотеки</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
-<body>
-<div class="container">
+<head th:replace="~{fragments/site :: head('Сотрудник библиотеки', 'Библиотечная система: Сотрудник библиотеки', true)}"></head>
+<body class="site-page db-page">
+<header th:replace="~{fragments/site :: header('app')}"></header>
+<main id="main-content" class="site-shell db-content" tabindex="-1">
     <header class="page-header">
         <h1>Сотрудник библиотеки</h1>
         <p>Доступные функции для сотрудника</p>
     </header>
-
-    <nav class="top-nav">
-        <a th:href="@{/}">На главную</a>
-        <a th:href="@{/reader}">Читатель</a>
-        <a th:href="@{/staff}" class="active">Сотрудник</a>
-    </nav>
 
     <section class="card-grid">
         <a class="menu-card" th:href="@{/input/book}">
@@ -29,6 +20,7 @@
             <p>Просмотр статистики по жанрам, фонду и штрафам.</p>
         </a>
     </section>
-</div>
+</main>
+<footer th:replace="~{fragments/site :: footer}"></footer>
 </body>
 </html>

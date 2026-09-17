@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/site :: head('Сервисы', 'Десять сервисов: посещения, поиск, карта, погода и инструменты для читателя.', false)}"></head>
+<body class="site-page">
+<header th:replace="~{fragments/site :: header('services')}"></header>
+<main id="main-content" class="site-shell information-content" tabindex="-1">
+    <p class="eyebrow">Полезное рядом</p>
+    <h1>Сервисы</h1>
+    <p class="hero-subtitle">Найди нужную страницу, спланируй чтение или посмотри погоду.</p>
+    <div class="site-card-grid">
+        <a class="site-card" th:each="tool : ${tools}" th:href="@{${tool.path()}}">
+            <h2 th:text="${tool.title}"></h2>
+            <p th:text="${tool.description}"></p>
+            <span class="card-action">Открыть →</span>
+        </a>
+    </div>
+</main>
+<footer th:replace="~{fragments/site :: footer}"></footer>
+</body>
+</html>

@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Ошибка</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
-<body>
-<div class="container">
+<head th:replace="~{fragments/site :: head('Ошибка', 'Библиотечная система: Ошибка', true)}"></head>
+<body class="site-page db-page">
+<header th:replace="~{fragments/site :: header('app')}"></header>
+<main id="main-content" class="site-shell db-content" tabindex="-1">
     <div class="error-page-card">
         <h1 th:text="${errorTitle}">Ошибка</h1>
         <p th:text="${errorMessage}">Произошла ошибка.</p>
 
         <div class="error-page-actions">
-            <a class="btn-primary link-btn" th:href="@{/}">На главную</a>
+            <a class="btn-primary link-btn" th:href="@{/app}">В меню приложения</a>
             <a class="btn-secondary link-btn" href="javascript:history.back()">Назад</a>
         </div>
     </div>
-</div>
+</main>
+<footer th:replace="~{fragments/site :: footer}"></footer>
 </body>
 </html>

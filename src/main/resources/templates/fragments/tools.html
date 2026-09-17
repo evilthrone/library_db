@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head><title>Инструменты</title></head>
+<body>
+<section th:fragment="map" class="map-widget" th:data-latitude="${site.latitude}" th:data-longitude="${site.longitude}"
+         th:data-demo="${site.demoLocation}" th:data-name="${site.name}">
+    <h2>Карта и местоположение</h2>
+    <p th:if="${site.demoLocation}">Демонстрационная точка в выбранном городе. Это не адрес реальной библиотеки.</p>
+    <p th:unless="${site.demoLocation}" th:text="${site.address}"></p>
+    <p>Координаты точки: <span th:text="${site.latitude}"></span>, <span th:text="${site.longitude}"></span>.</p>
+    <div class="library-map" aria-label="Интерактивная карта" tabindex="0"></div>
+    <p class="map-status" role="status">Загрузка карты…</p>
+    <div class="tool-actions">
+        <button type="button" class="map-locate">Моё местоположение</button>
+        <button type="button" class="map-reset">К точке библиотеки</button>
+    </div>
+    <p class="tool-note">Геолокация включается только по кнопке и с разрешения браузера. Она показывает посетителя,
+        а не библиотеку. Координаты не сохраняются приложением. Внешний поставщик карты получает запросы к видимой области.</p>
+    <p class="tool-note">Карта: <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>.
+        Для карты нужен интернет; для геолокации при публикации нужен HTTPS.</p>
+    <noscript>Для интерактивной карты нужен JavaScript.</noscript>
+</section>
+
+    <div class="visit-table-wrap" th:fragment="visit-table">
+        <table class="visit-table">
+            <caption>Посещения страниц</caption>
+            <thead><tr><th scope="col">Страница</th><th scope="col">Посещения</th></tr></thead>
+            <tbody><tr th:each="row : ${visitRows}">
+                <td><a th:href="@{${row.path}}" th:text="${row.title}"></a></td>
+                <td th:text="${row.count}"></td>
+            </tr></tbody>
+        </table>
+    </div>
+
+</body>
+</html>

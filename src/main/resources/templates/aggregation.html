@@ -1,22 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Агрегация данных</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
-<body>
-<div class="container">
+<head th:replace="~{fragments/site :: head('Агрегация данных', 'Библиотечная система: Агрегация данных', true)}"></head>
+<body class="site-page db-page">
+<header th:replace="~{fragments/site :: header('app')}"></header>
+<main id="main-content" class="site-shell db-content" tabindex="-1">
     <header class="page-header">
         <h1>Агрегация данных</h1>
         <p>Сводная информация по жанрам и открытым штрафам</p>
     </header>
-
-    <nav class="top-nav">
-        <a th:href="@{/}">На главную</a>
-        <a th:href="@{/reader}">Меню читателя</a>
-        <a th:href="@{/staff}">Меню сотрудника</a>
-    </nav>
 
     <form class="filter-card" method="get" th:action="@{/aggregation}">
         <label for="databaseTarget">СУБД для агрегации</label>
@@ -68,6 +59,7 @@
             </tbody>
         </table>
     </section>
-</div>
+</main>
+<footer th:replace="~{fragments/site :: footer}"></footer>
 </body>
 </html>

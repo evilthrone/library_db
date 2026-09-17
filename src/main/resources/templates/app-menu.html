@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/site :: head('Приложение библиотеки', 'Выбор раздела читателя или сотрудника: регистрация, поиск книг, пополнение каталога и статистика.', false)}"></head>
+<body class="site-page">
+<header th:replace="~{fragments/site :: header('app')}"></header>
+<main id="main-content" class="site-shell app-content" tabindex="-1">
+    <p class="eyebrow">Приложение БД</p>
+    <h1>Библиотечная система</h1>
+    <p class="hero-subtitle">Выбери нужный раздел</p>
+    <div class="site-card-grid role-grid">
+        <a class="site-card" th:href="@{/reader}">
+            <h2>Читатель</h2>
+            <p>Регистрация и поиск книг по каталогу.</p>
+            <span class="card-action">Открыть раздел <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="site-card" th:href="@{/staff}">
+            <h2>Сотрудник</h2>
+            <p>Добавление книг и просмотр агрегированной информации.</p>
+            <span class="card-action">Открыть раздел <span aria-hidden="true">→</span></span>
+        </a>
+    </div>
+    <p class="app-note">Выбор раздела открывает меню функций и не является авторизацией.</p>
+</main>
+<footer th:replace="~{fragments/site :: footer}"></footer>
+</body>
+</html>

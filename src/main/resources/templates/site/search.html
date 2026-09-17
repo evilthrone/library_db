@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/site :: head('Поиск по сайту', 'Поиск слов в заголовках и содержимом страниц библиотеки.', false)}"></head>
+<body class="site-page">
+<header th:replace="~{fragments/site :: header('services')}"></header>
+<main id="main-content" class="site-shell information-content" tabindex="-1">
+    <h1>Поиск по сайту</h1>
+    <p>Ищем по словам в заголовках и текстах страниц. Если слов несколько, страница должна содержать каждое из них.
+        Для поиска книг открой <a th:href="@{/reader}">раздел читателя</a>.</p>
+    <p th:if="${tooLong}" role="status">Запрос слишком длинный. Введи не более 200 символов.</p>
+    <p th:if="${!tooLong and #strings.isEmpty(#strings.trim(query))}">Введи запрос в строке под верхним меню.</p>
+    <div th:if="${!tooLong and !#strings.isEmpty(#strings.trim(query))}">
+        <p>Запрос: <strong th:text="${query}"></strong>. Найдено страниц: <strong th:text="${#lists.size(results)}"></strong>.</p>
+        <p th:if="${#lists.isEmpty(results)}">Ничего не найдено. Попробуй другое слово или более короткий запрос.</p>
+        <div class="resource-list">
+            <a class="resource-card" th:each="result : ${results}" th:href="@{${result.path}}">
+                <h2 th:text="${result.title}"></h2>
+                <p th:text="${result.snippet}"></p>
+                <span class="resource-kind" th:text="${result.path}"></span>
+            </a>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/site :: footer}"></footer>
+</body>
+</html>
